@@ -10,14 +10,17 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="setAsk">
+    <form action="userStockBought">
+    Username:
+    <input type="text" name="userEmail"><br>
     company code:
     <input type="text" name="companyCode"><br>
-    ask price:
-    <input type="text" name="askPrice"><br>
-    ask volume:
-    <input type="text" name="askVolume"><br>
-    <input type="submit">
+    Rate:
+    <input type="text" name="boughtPrice"><br>
+    Volume Bought:
+    <input type="text" name="stockVolume"><br>
+    <input type ="submit" value="submit">
 </form>
 </body>
 </html>
+

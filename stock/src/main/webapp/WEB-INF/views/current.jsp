@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/setTodayRate">
+    <form action="setTodayRate">
     company code:
     <input type="text" name="companyCode"><br>
     current rate:

@@ -11,5 +11,6 @@ public interface UsersService {
     public void delete(String username, String password);
     public void create(Users user);
     public void update(Users user);
+    public Users getByEmail(String email);
     
 }

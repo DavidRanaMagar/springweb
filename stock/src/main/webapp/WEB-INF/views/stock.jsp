@@ -20,6 +20,7 @@
     bid price:<%out.print(stock.getBidPrice());%><br><br>
     bid volume:<%out.print(stock.getBidVolume());%><br><br>
     ask price:<%out.print(stock.getAskPrice());%><br><br>
-    ask volume:<%out.print(stock.getAskVolume());%>
+    ask volume:<%out.print(stock.getAskVolume());%><br><br>
+    market volume:<%out.print(stock.getMarketVolume());%>
 </body>
 </html>

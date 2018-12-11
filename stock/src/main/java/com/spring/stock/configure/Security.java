@@ -27,9 +27,9 @@ public class Security extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/","/getByName","/getByCode","/showAll","/loign","/loginUser")
+            .antMatchers("/","/getByName","/getByCode","/showAll","/loignPage","/loginUser")
             .permitAll()
-            .antMatchers("/userDelete","/deleteUser").hasAnyRole("ADMIN","USER")
+            .antMatchers("/userDelete","/deleteUser","/userStockBought","/userBuyStock","/userStock").hasAnyRole("ADMIN","USER")
             .antMatchers("/admin/**").hasAnyRole("ADMIN").and().formLogin();
         
     }

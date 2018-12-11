@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/setBid">
+    <form action="setBid">
     company code:
     <input type="text" name="companyCode"><br>
     bid price:

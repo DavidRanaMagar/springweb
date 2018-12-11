@@ -20,5 +20,10 @@ public class RolesServiceImpl implements RolesService{
         Roles role= rolesDao.findById(id);
         return role;
     }
+
+    @Override
+    public void save(String role) {
+        rolesDao.save(role);
+    }
     
 }

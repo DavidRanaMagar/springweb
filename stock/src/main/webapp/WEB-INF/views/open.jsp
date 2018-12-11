@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/setTodayOpen">
+    <form action="setTodayOpen">
     company code:
     <input type="text" name="companyCode"><br>
     today open:

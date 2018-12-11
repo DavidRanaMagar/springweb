@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/setPreviousClose">
+    <form action="setPreviousClose">
     company code:
     <input type="text" name="companyCode"><br>
     previous close:

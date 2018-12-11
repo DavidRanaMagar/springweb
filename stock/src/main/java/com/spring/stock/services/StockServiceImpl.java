@@ -3,13 +3,17 @@ package com.spring.stock.services;
 
 import com.spring.stock.dao.StockDao;
 import com.spring.stock.entity.Stock;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StockServiceImpl implements StockService{
     private StockDao stockDao;
-
+    @Autowired
     public StockServiceImpl(StockDao stockDao) {
         this.stockDao = stockDao;
     }
@@ -78,6 +82,29 @@ public class StockServiceImpl implements StockService{
         if(stock1.equals(stock2)){
             stockDao.delete(stock1);
     }
+    }
+
+    @Override
+    public void setMarketVolume(String code, int marketVolume) {
+        Stock stock = stockDao.findByCode(code);
+        stock.setMarketVolume(marketVolume);
+        stockDao.save(stock);
+    }
+
+    @Override
+    public void setMarketCap(String code, double marketCap) {
+        Stock stock = stockDao.findByCode(code);
+        stock.setMarketCap(marketCap);
+        stockDao.save(stock);
+    }
+
+    @Override
+    public List<Stock> getByCode(Set<String> code) {
+        List <Stock> stockList = new ArrayList();
+        for(String var: code){
+            stockList.add(stockDao.findByName(var));
+        }
+        return stockList;
     }
     
 }

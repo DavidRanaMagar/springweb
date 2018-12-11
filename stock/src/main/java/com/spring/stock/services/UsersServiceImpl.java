@@ -68,6 +68,12 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
         }
         return new UserDetailsImpl(user);
     }
+
+    @Override
+    public Users getByEmail(String email) {
+        Users user = userDao.findByEmail(email);
+        return user;
+    }
     
     
 }

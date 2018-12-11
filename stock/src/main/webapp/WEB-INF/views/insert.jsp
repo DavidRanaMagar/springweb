@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/insertStock">
+    <form action="insertStock">
     company name:
     <input type="text" name="companyName"><br>
     company code:
@@ -29,6 +29,10 @@
     <input type="text" name="askPrice"><br>
     ask volume:
     <input type="text" name="askVolume"><br>
+    market volume:
+    <input type="text" name="marketVolume"><br>
+    Market Cap:
+    <input type="text" name="marketCap"><br>
     <input type="submit">
 </form>
 </body>

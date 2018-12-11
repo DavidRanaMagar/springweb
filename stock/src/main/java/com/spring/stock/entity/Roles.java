@@ -20,42 +20,39 @@ public class Roles {
     private String role;
     @ManyToMany(mappedBy="roles",fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Users> users;
-
-    public Roles() {
-    }
-
-    public Roles(String role) {
-        this.role = role;
-    }
-
-    public Roles(int id, String role) {
-        this.id = id;
-        this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }  
-
-    public List<Users> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<Users> users) {
-        this.users = users;
-    }
-    
+	public Roles() {
+	}
+	public Roles(int id, String role) {
+		this.id = id;
+		this.role = role;
+	}
+	
+	public Roles(String role) {
+		this.role = role;
+	}
+	public Roles(String role, List<Users> users) {
+		this.role = role;
+		this.users = users;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public List<Users> getUsers() {
+		return users;
+	}
+	public void setUsers(List<Users> users) {
+		this.users = users;
+	}
+	
+	
     
 }

@@ -5,5 +5,6 @@ import com.spring.stock.entity.Roles;
 
 public interface RolesService {
     public Roles getById(int id);
+    public void save(String role);
     
 }

@@ -10,7 +10,7 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="admin/deleteStock">
+    <form action="deleteStock">
     company name:
     <input type="text" name="companyName"><br>
     company code:

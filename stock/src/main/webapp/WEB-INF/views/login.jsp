@@ -11,11 +11,14 @@
 </head>
 <body>
     <form action="loginUser">
-        Email<input type="text" name="email" placeholder="Email">
-        Password<input type="password" name="password" placeholder="Password">
+        Email<input type="text" name="email" placeholder="Email"><br>
+        Password<input type="password" name="password" placeholder="Password"><br>
+        Name<input type="text" name="name" placeholder="Name"><br>
+        Address<input type="text" name="address" placeholder="Address"><br>
+        Age<input type="text" name="age" placeholder="Age"><br>
+        Contact Number<input type="text" name="contactNo" placeholder="Contact Number"><br>
         <input type="submit" placeholder="Login">
     </form>
-    <a href="create">create new user</a>
     
 </body>
 </html>

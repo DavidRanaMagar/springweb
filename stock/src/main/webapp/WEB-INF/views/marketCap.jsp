@@ -10,13 +10,11 @@
     <script src="main.js"></script>-->
 </head>
 <body>
-    <form action="setAsk">
+    <form action="setMarketCap">
     company code:
     <input type="text" name="companyCode"><br>
-    ask price:
-    <input type="text" name="askPrice"><br>
-    ask volume:
-    <input type="text" name="askVolume"><br>
+    Market Cap
+    <input type="text" name="marketCap"><br>
     <input type="submit">
 </form>
 </body>
