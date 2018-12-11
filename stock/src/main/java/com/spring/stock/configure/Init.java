@@ -25,8 +25,7 @@ public class Init{
     
     @PostConstruct
     public void user(){
-        Users user = userService.getByEmail("Admin");
-        if (user.equals(null)){
+        if (userService.getByEmail("Admin").equals(null)){
             BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
             String epassword = pe.encode("root");
             Set<Roles> roles = new HashSet<Roles>();
