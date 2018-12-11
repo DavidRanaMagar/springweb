@@ -31,8 +31,8 @@ public class Init{
             Set<Roles> roles = new HashSet<Roles>();
             roles.add(roleService.getById(1));
             roles.add(roleService.getById(2));
-            Users userA = new Users("Admin",epassword,roles);
-            userService.create(userA);
+            Users user = new Users("Admin",epassword,roles);
+            userService.create(user);
         }else{
             System.out.println("error");
         }
