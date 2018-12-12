@@ -13,6 +13,7 @@ import com.spring.stock.services.UserInfoService;
 import com.spring.stock.services.UsersService;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -98,7 +99,7 @@ public class PagesController {
     public String userStock(ModelMap m, Principal principal){
         String userName = principal.getName();
         List<BuyersTable> buyerList = buyerService.getByUserEmailAndStatus(userName,true);
-        Set codes = new HashSet();
+        List codes = new ArrayList();
         for(BuyersTable var: buyerList){
             codes.add(var.getStockCode());
         }

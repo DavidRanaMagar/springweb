@@ -22,7 +22,7 @@
                 <th>Status</th>
             </tr>
             <%List<BuyersTable> buyersList=(List<BuyersTable>) request.getAttribute("buyersList"); 
-            for(Stock buyer:buyersList){
+            for(BuyersTable buyer:buyersList){
             %>
             
             <tr>
@@ -45,7 +45,7 @@
                     <%out.print(buyer.getStatus());%>
                 </td>
                 <td>
-                    <a href="confirmSellStock?id=<%=buyer.getId();%>">Confirm Sell</a>
+                    <a href="confirmSellStock?id=<%=buyer.getId() %>">Confirm Sell</a>
                 </td>
             </tr>
             <%}%>

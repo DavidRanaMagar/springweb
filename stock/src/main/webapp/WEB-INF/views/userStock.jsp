@@ -1,6 +1,7 @@
 <%@page import="com.spring.stock.entity.Stock" %>
 <%@page import="com.spring.stock.entity.BuyersTable" %>
 <%@page import="java.util.List" %>
+<%@page import="java.util.Set"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,21 @@
                 <th>Bought Price</th>
                 <th>Bought Volume</th>
                 <th>Current Rate</th>
+                <th>Profit</th>
             </tr>
             <%List<BuyersTable> buyerList=(List<BuyersTable>) request.getAttribute("buyerList");
-            <%Set<Stock> stockList=(Set<BuyersTable>) request.getAttribute("stockList");
+            List<Stock> stockList=(List<Stock>) request.getAttribute("stockList");
             for(BuyersTable buyer:buyerList){
             %>
             
             <tr>
                 <td>
                     <%for(Stock stock: stockList){
-                        if (buyerList.getCode().equals(stock.getCode())){
+                        if (buyer.getStockCode().equals(stock.getCode())){
                             out.print(stock.getName());%>
                 </td>
                 <td>
-                    <%out.print(buyer.getCode());%>
+                    <%out.print(buyer.getStockCode());%>
                 </td>
                 <td>
                     <%out.print(buyer.getBoughtPrice());%>
@@ -43,6 +45,13 @@
                 </td>
                 <td>
                     <%out.print(stock.getCurrentRate());
+                    %>
+                </td>
+ 				<td>
+                    <%
+                    double bought = buyer.getBoughtPrice();
+                    double current = stock.getCurrentRate();
+                    out.print(bought-current);
                     }%>
                 </td>
             </tr>

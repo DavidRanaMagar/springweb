@@ -99,7 +99,7 @@ public class StockServiceImpl implements StockService{
     }
 
     @Override
-    public List<Stock> getByCode(Set<String> code) {
+    public List<Stock> getByCode(List<String> code) {
         List <Stock> stockList = new ArrayList();
         for(String var: code){
             stockList.add(stockDao.findByName(var));

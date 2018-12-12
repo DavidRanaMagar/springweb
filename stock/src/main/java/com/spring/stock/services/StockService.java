@@ -9,7 +9,7 @@ public interface StockService {
     public List<Stock> getAll();
     public Stock getByCode(String code);
     public Stock getByName(String name);
-    public List<Stock> getByCode(Set<String> code);
+    public List<Stock> getByCode(List <String> code);
     public void setBid(String code,double rate,int volume);
     public void setAsk(String code,double rate,int volume);
     public void setPreviousClose(String code,double rate);
