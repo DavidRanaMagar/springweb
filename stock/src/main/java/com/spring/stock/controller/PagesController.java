@@ -74,10 +74,7 @@ public class PagesController {
     public String createUser(@RequestParam("email") String email,@RequestParam("password") String password,
             @RequestParam("address") String address,@RequestParam("age") String age,
             @RequestParam("contactNo") String contactNo,@RequestParam("name") String name){
-    	if(email.equals(userService.getByEmail(email).getEmail())) {
-            return "error";
-    	}
-    	else {
+    	if(userService.getByEmail(email)==null) {
     		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
             String epassword = pe.encode(password);
             Set<Roles> roles = new HashSet<Roles>();
@@ -86,9 +83,11 @@ public class PagesController {
             Users user = new Users(email,epassword,roles);
             userInfoService.create(uInfo);
             userService.create(user);
-    		
+            return "home";
     	}
-    	return "home";
+    	else {
+            return "error";
+    	}
     }
     @RequestMapping("/userDelete")
     public String delete(){
