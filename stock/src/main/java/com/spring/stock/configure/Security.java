@@ -27,10 +27,14 @@ public class Security extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/","/getByName","/getByCode","/showAll","/loignPage","/loginUser")
+            .antMatchers("/","/getByName","/getByCode","/showAll","/loignPage","/loginUser","/assets/**")
             .permitAll()
             .antMatchers("/userDelete","/deleteUser","/userStockBought","/userBuyStock","/userStock").hasAnyRole("ADMIN","USER")
-            .antMatchers("/admin/**").hasAnyRole("ADMIN").and().formLogin();
+            .antMatchers("/createStock","/insertStock","/bid"
+            ,"/setBid","/ask","/setAsk","/close","/setPreviousClose"
+            ,"/setOpen","/setTodayOpen","/todayRate","/setTodayRate",
+            "/marketVolume","/setMarketVolume","/marketCap","/setMarketCap",
+            "/delete","/deleteStock","/buyStock","/buy","/confirmSell","/confirmSellStock").hasAnyRole("ADMIN").and().formLogin().permitAll().and().logout();
         
     }
    

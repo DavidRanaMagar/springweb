@@ -19,10 +19,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -50,12 +52,14 @@ public class PagesController {
     @RequestMapping(value="/getByName")
     public String stockByName(@RequestParam("companyName") String name, ModelMap m){
         Stock stock = stockImp.getByName(name);
+        System.out.println(stock.getName());
         m.addAttribute("stock", stock);
         return "stock";
     }
     @RequestMapping(value="/getByCode")
     public String stockByCode(@RequestParam("companyCode") String code, ModelMap m){
-        Stock stock = stockImp.getByCode(code);
+        Stock stock = stockImp.getByCode(code.toUpperCase());
+        System.out.println(stock.getName());
         m.addAttribute("stock", stock);
         return "stock";
     }
@@ -63,14 +67,17 @@ public class PagesController {
     public String showAll(ModelMap m){
         
         List<Stock> stockList = stockImp.getAll();
-        m.addAttribute("stockList",stockList );
+        for( Stock stock: stockList){
+            System.out.print(stock.getName());
+        }
+        m.addAttribute("stockList",stockList);
         return "showall";
     }
     @RequestMapping("/loginPage")
     public String login(){
         return "login";
     }
-    @RequestMapping("/loginUser")
+    @RequestMapping(value="/loginUser", method=RequestMethod.POST)
     public String createUser(@RequestParam("email") String email,@RequestParam("password") String password,
             @RequestParam("address") String address,@RequestParam("age") String age,
             @RequestParam("contactNo") String contactNo,@RequestParam("name") String name){
@@ -93,7 +100,7 @@ public class PagesController {
     public String delete(){
         return "userDelete";
     }
-    @RequestMapping("/deleteUser")
+    @RequestMapping(value="/deleteUser", method=RequestMethod.POST)
     public String deleteUser(@RequestParam("email") String email, @RequestParam("password") String password){
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
         String epassword = pe.encode(password);
@@ -104,11 +111,14 @@ public class PagesController {
     public String userStock(ModelMap m, Principal principal){
         String userName = principal.getName();
         List<BuyersTable> buyerList = buyerService.getByUserEmailAndStatus(userName,true);
-        List codes = new ArrayList();
+        Set<String> codes = new HashSet();
         for(BuyersTable var: buyerList){
-            codes.add(var.getStockCode());
+            codes.add(var.getStockCode().toUpperCase());
         }
-        List<Stock> stockList = stockImp.getByCode(codes);
+        List<Stock> stockList=new ArrayList();
+        for(String var: codes){
+            stockList.add(stockImp.getByCode(var));
+        }
         m.addAttribute("buyerList", buyerList);
         m.addAttribute("stockList", stockList);
         return "userStock";
@@ -121,19 +131,36 @@ public class PagesController {
     public String userStockBought(@RequestParam("userEmail") String userEmail,
             @RequestParam("companyCode") String companyCode, @RequestParam("boughtPrice") String boughtPrice,
             @RequestParam("stockVolume") String stockVolume){
-        Stock stock = stockImp.getByCode(companyCode);
+        Stock stock = stockImp.getByCode(companyCode.toUpperCase());
         Users user = userService.getByEmail(userEmail);
-        if (stock.equals(null)||user.equals(null)){
-         System.out.println("error");   
+        if (stock.equals(null)||user.equals(null)){ 
            
         }else{
             SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String time = sdfDate.format(date);
-            BuyersTable buyer=new BuyersTable(userEmail,companyCode,Double.valueOf(boughtPrice),Integer.valueOf(stockVolume),time,false);
+            BuyersTable buyer=new BuyersTable(userEmail,companyCode.toUpperCase(),Double.valueOf(boughtPrice),Integer.valueOf(stockVolume),time,false);
             buyerService.create(buyer);
         }
         return "home";
     }
-    
+    @RequestMapping(value="logined")
+    public String logined(){
+        return "logined";
+    }
+    @RequestMapping(value="login")
+    public String loginc(){
+        return "home";
+       /*
+        BCryptPasswordEncoder e=new BCryptPasswordEncoder();
+        
+        String epassword = e.encode(password);
+        System.out.println(userService.getByEmail(username).getPassword().equals(epassword));
+        if(userService.getByEmail(username)!=null && userService.getByEmail(username).getPassword().equals(epassword)){
+            return"/";
+        }
+        else{
+            return "/error";
+        }*/
+    }
 }

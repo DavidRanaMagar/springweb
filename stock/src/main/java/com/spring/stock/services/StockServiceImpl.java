@@ -35,7 +35,7 @@ public class StockServiceImpl implements StockService{
 
     @Override
     public Stock getByName(String name) {
-        return stockDao.findByCode(name);
+        return stockDao.findByName(name);
     }
 
     @Override

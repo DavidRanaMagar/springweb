@@ -26,6 +26,7 @@ public class BuyersTable {
     
     
     public BuyersTable(int id, String userEmail, String stockCode, double boughtPrice, int stockVolume, String date,boolean status) {
+        
         this.id = id;
         this.userEmail = userEmail;
         this.stockCode = stockCode;

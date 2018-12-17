@@ -1,12 +1,11 @@
 
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set Current</title>
+    <title>Login</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="assets/css/Box-panels.css">
@@ -37,26 +36,27 @@
     </nav>
     <div class="container">
         <div>
-            <form action="setTodayRate" method="POST">
+            <form action="/login" method="POST">
                 <div class="form-group">
                     <div id="formdiv">
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;">
                             <div class="col-md-8 offset-md-1">
-                                <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Company Code</strong></p>
+                                <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Email</strong></p>
                             </div>
-                           <div class="col-md-10 offset-md-1" style="font-family:Roboto, sans-serif;"><input class="form-control" type="text" name="companyCode" placeholder="code" style="margin-left:0px;"></div>
+                           <div class="col-md-10 offset-md-1" style="font-family:Roboto, sans-serif;"><input class="form-control" type="text" name="username" placeholder="Email" style="margin-left:0px;"></div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;">
                             <div class="col-md-8 offset-md-1">
-                                <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Current Rate</strong></p>
+                                <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Password</strong></p>
                             </div>
-                            <div class="col-md-10 offset-md-1" style="font-family:Roboto, sans-serif;"><input class="form-control" type="text" name="currentRate" placeholder="Current Rate" style="margin-left:0px;"></div>
+                            <div class="col-md-10 offset-md-1" style="font-family:Roboto, sans-serif;"><input class="form-control" type="text" name="password" placeholder="Password" style="margin-left:0px;"></div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;">
                             <div class="col-12 col-md-4 offset-md-4"><button class="btn btn-light btn-lg" type="reset" style="font-family:Roboto, sans-serif;">Clear </button><button class="btn btn-light btn-lg" type="submit" style="margin-left:16px;">Submit </button></div>
                         </div>
                     </div>
-                </div>
+                </div><br>
+                <a href="loginPage">Create New Account</a>
             </form>
         </div>
     </div>
