@@ -144,23 +144,4 @@ public class PagesController {
         }
         return "home";
     }
-    @RequestMapping(value="logined")
-    public String logined(){
-        return "logined";
-    }
-    @RequestMapping(value="login")
-    public String loginc(){
-        return "home";
-       /*
-        BCryptPasswordEncoder e=new BCryptPasswordEncoder();
-        
-        String epassword = e.encode(password);
-        System.out.println(userService.getByEmail(username).getPassword().equals(epassword));
-        if(userService.getByEmail(username)!=null && userService.getByEmail(username).getPassword().equals(epassword)){
-            return"/";
-        }
-        else{
-            return "/error";
-        }*/
-    }
 }

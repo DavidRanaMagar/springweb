@@ -30,7 +30,7 @@
             <div
                 class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav ml-auto links">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="logined">Login</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="login">Login</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout">Logout</a></li>
                 </ul>
         </div>
