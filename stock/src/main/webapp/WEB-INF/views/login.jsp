@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    
     <nav class="navbar navbar-light navbar-expand-md custom-header" style="margin-bottom:20px;">
         <div class="container-fluid"><a class="navbar-brand" href="/" style="font-family:'Source Sans Pro', sans-serif;">Nepal Stock</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
@@ -33,6 +34,10 @@
         </div>
         </div>
     </nav>
+    <h2><% String msg = (String) request.getAttribute("msg");
+        if(msg!=null){
+        out.print(msg);
+    }%></h2>
     <div class="container">
         <div>
             <form action="loginUser" method="POST">

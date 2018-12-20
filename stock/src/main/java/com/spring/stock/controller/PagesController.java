@@ -51,17 +51,25 @@ public class PagesController {
     }
     @RequestMapping(value="/getByName")
     public String stockByName(@RequestParam("companyName") String name, ModelMap m){
-        Stock stock = stockImp.getByName(name);
-        System.out.println(stock.getName());
-        m.addAttribute("stock", stock);
-        return "stock";
+        try{
+            Stock stock = stockImp.getByName(name);
+            System.out.println(stock.getName());
+            m.addAttribute("stock", stock);
+            return "stock";}
+        catch(Exception e){
+            return "home";  
+        }
     }
     @RequestMapping(value="/getByCode")
     public String stockByCode(@RequestParam("companyCode") String code, ModelMap m){
-        Stock stock = stockImp.getByCode(code.toUpperCase());
-        System.out.println(stock.getName());
-        m.addAttribute("stock", stock);
-        return "stock";
+        try{
+            Stock stock = stockImp.getByCode(code.toUpperCase());
+            System.out.println(stock.getName());
+            m.addAttribute("stock", stock);
+            return "stock";
+        }catch(Exception e){
+            return "home";
+        }
     }
     @RequestMapping(value="/showAll")
     public String showAll(ModelMap m){
@@ -80,9 +88,10 @@ public class PagesController {
     @RequestMapping(value="/loginUser", method=RequestMethod.POST)
     public String createUser(@RequestParam("email") String email,@RequestParam("password") String password,
             @RequestParam("address") String address,@RequestParam("age") String age,
-            @RequestParam("contactNo") String contactNo,@RequestParam("name") String name){
+            @RequestParam("contactNo") String contactNo,@RequestParam("name") String name, ModelMap m){
     	if(userService.getByEmail(email)==null) {
-    		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+            try{
+            BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
             String epassword = pe.encode(password);
             Set<Roles> roles = new HashSet<Roles>();
             roles.add(roleService.getById(2));
@@ -91,9 +100,14 @@ public class PagesController {
             userInfoService.create(uInfo);
             userService.create(user);
             return "home";
+            }catch (Exception e){
+                return "login";
+            }
     	}
     	else {
-            return "error";
+            String s = "Entered email exist";
+            m.addAttribute("msg", s);
+            return "login";
     	}
     }
     @RequestMapping("/userDelete")
@@ -102,10 +116,15 @@ public class PagesController {
     }
     @RequestMapping(value="/deleteUser", method=RequestMethod.POST)
     public String deleteUser(@RequestParam("email") String email, @RequestParam("password") String password){
+        try{
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
         String epassword = pe.encode(password);
         userService.delete(email,epassword);
-        return "home";
+        return "home";}
+        catch (Exception e){
+            return "userDelete";
+        }
+        
     }
     @RequestMapping("/userStock")
     public String userStock(ModelMap m, Principal principal){
@@ -131,17 +150,18 @@ public class PagesController {
     public String userStockBought(@RequestParam("userEmail") String userEmail,
             @RequestParam("companyCode") String companyCode, @RequestParam("boughtPrice") String boughtPrice,
             @RequestParam("stockVolume") String stockVolume){
-        Stock stock = stockImp.getByCode(companyCode.toUpperCase());
-        Users user = userService.getByEmail(userEmail);
-        if (stock.equals(null)||user.equals(null)){ 
-           
-        }else{
+        try{
+            Stock stock = stockImp.getByCode(companyCode.toUpperCase());
+            Users user = userService.getByEmail(userEmail);
             SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String time = sdfDate.format(date);
             BuyersTable buyer=new BuyersTable(userEmail,companyCode.toUpperCase(),Double.valueOf(boughtPrice),Integer.valueOf(stockVolume),time,false);
             buyerService.create(buyer);
+            return "home";
         }
-        return "home";
+        catch(Exception e){
+            return "userBuyStock";
+        }
     }
 }

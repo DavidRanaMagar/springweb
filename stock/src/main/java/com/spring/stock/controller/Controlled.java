@@ -44,15 +44,18 @@ public class Controlled {
     @RequestParam("bidPrice") String bidPrice,@RequestParam("bidVolume") String bidVolume,
     @RequestParam("askPrice") String askPrice,@RequestParam("askVolume") String askVolume,
     @RequestParam("marketVolume") String marketVolume, @RequestParam("marketCap") String marketCap,ModelMap m){
-        
-        CompanyLog c = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(currentRate),Double.valueOf(previousClose),
+        try{
+            CompanyLog c = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(currentRate),Double.valueOf(previousClose),
                 Double.valueOf(marketCap),0,Integer.valueOf(marketVolume));
-        companyServiceLog.create(c);
-        Stock stock = new Stock(companyName,companyCode.toUpperCase(),Double.valueOf(previousClose),Double.valueOf(todayOpen),
+            companyServiceLog.create(c);
+            Stock stock = new Stock(companyName,companyCode.toUpperCase(),Double.valueOf(previousClose),Double.valueOf(todayOpen),
                 Double.valueOf(currentRate),Double.valueOf(bidPrice),Integer.valueOf(bidVolume),
                 Double.valueOf(askPrice),Integer.valueOf(askVolume),Integer.valueOf(marketVolume),Double.valueOf(marketCap));
-        stockService.setNewStock(stock);
-       return "home";
+            stockService.setNewStock(stock);
+            return "home";
+        }catch( Exception e){
+            return "insert";
+        }
     }
     @RequestMapping(value="/bid")
     public String bid(){
@@ -61,8 +64,12 @@ public class Controlled {
     @RequestMapping(value="/setBid", method=RequestMethod.POST)
     public String setBid(@RequestParam("companyCode") String companyCode,@RequestParam("bidPrice") String bidPrice,
             @RequestParam("bidVolume") String bidVolume){
-        stockService.setBid(companyCode.toUpperCase(), Double.valueOf(bidPrice), Integer.valueOf(bidVolume));
-        return "home";
+        try{
+            stockService.setBid(companyCode.toUpperCase(), Double.valueOf(bidPrice), Integer.valueOf(bidVolume));
+            return "home";
+        }catch(Exception e){
+            return "bid";
+        }
     }
     @RequestMapping(value="/ask")
     public String ask(){
@@ -71,8 +78,12 @@ public class Controlled {
     @RequestMapping(value="/setAsk", method=RequestMethod.POST)
     public String setAsk(@RequestParam("companyCode") String companyCode,@RequestParam("askPrice") String askPrice,
             @RequestParam("askVolume") String askVolume){
-        stockService.setAsk(companyCode.toUpperCase(), Double.valueOf(askPrice), Integer.valueOf(askVolume));
-        return "home";
+        try{
+            stockService.setAsk(companyCode.toUpperCase(), Double.valueOf(askPrice), Integer.valueOf(askVolume));
+            return "home";
+        }catch(Exception e){
+            return "ask";
+        }
     }
     @RequestMapping(value="/close")
     public String close(){
@@ -81,12 +92,16 @@ public class Controlled {
     @RequestMapping(value="/setPreviousClose", method=RequestMethod.POST)
     public String setPreviousClose(@RequestParam("companyCode") String companyCode,
             @RequestParam("previousClose") String previousClose){
-        stockService.setPreviousClose(companyCode.toUpperCase(), Double.valueOf(previousClose));
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
+        try{
+            stockService.setPreviousClose(companyCode.toUpperCase(), Double.valueOf(previousClose));
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
                 Double.valueOf(previousClose),companyServiceLog.getLastestMarketCap(),
                 companyServiceLog.getLastestVolumeBought(),companyServiceLog.getLastestMarketVolume());
-        companyServiceLog.create(companyLog);
+            companyServiceLog.create(companyLog);
         return "home";
+        }catch(Exception e){
+            return "prevclose";
+        }
     }
     @RequestMapping(value="/setOpen")
     public String open(){
@@ -95,25 +110,33 @@ public class Controlled {
     @RequestMapping(value="/setTodayOpen", method=RequestMethod.POST)
     public String setTodayOpen(@RequestParam("companyCode") String companyCode,
             @RequestParam("todayOpen") String todayOpen){
-        stockService.setOpenRate(companyCode.toUpperCase(), Double.valueOf(todayOpen));
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(todayOpen),
+        try{
+            stockService.setOpenRate(companyCode.toUpperCase(), Double.valueOf(todayOpen));
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(todayOpen),
                 companyServiceLog.getLastestCloseRate(),companyServiceLog.getLastestMarketCap(),
                 companyServiceLog.getLastestVolumeBought(),companyServiceLog.getLastestMarketVolume());
-        companyServiceLog.create(companyLog);
-        return "home";
+            companyServiceLog.create(companyLog);
+            return "home";
+        }catch(Exception e){
+            return "open";
+        }
     }
     @RequestMapping(value="/todayRate")
     public String todayRate(){
         return "current";
     }
     @RequestMapping(value="/setTodayRate", method=RequestMethod.POST)
-    public String setTodayRate(@RequestParam("companyCode") String companyCode,@RequestParam("currentRate") String currentRate){       
-        stockService.setCurrentRate(companyCode.toUpperCase(), Double.valueOf(currentRate));
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(currentRate),
+    public String setTodayRate(@RequestParam("companyCode") String companyCode,@RequestParam("currentRate") String currentRate){
+        try{
+            stockService.setCurrentRate(companyCode.toUpperCase(), Double.valueOf(currentRate));
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),Double.valueOf(currentRate),
                 companyServiceLog.getLastestCloseRate(),companyServiceLog.getLastestMarketCap(),
                 companyServiceLog.getLastestVolumeBought(),companyServiceLog.getLastestMarketVolume());
-        companyServiceLog.create(companyLog);
-        return "home";
+            companyServiceLog.create(companyLog);
+            return "home";
+        }catch(Exception e){
+            return "current";
+        }
     }
     @RequestMapping(value="/marketVolume")
     public String marketVolume(){
@@ -122,12 +145,16 @@ public class Controlled {
     @RequestMapping(value="/setMarketVolume", method=RequestMethod.POST)
     public String setmarketVolume(@RequestParam("companyCode") String companyCode,
             @RequestParam("marketVolume") String marketVolume){
-        stockService.setMarketVolume(companyCode.toUpperCase(),Integer.valueOf(marketVolume));
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
+        try{
+            stockService.setMarketVolume(companyCode.toUpperCase(),Integer.valueOf(marketVolume));
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
                 companyServiceLog.getLastestCloseRate(),companyServiceLog.getLastestMarketCap(),
                 companyServiceLog.getLastestVolumeBought(),Integer.valueOf("marketVolume"));
-        companyServiceLog.create(companyLog);
-        return "home";
+            companyServiceLog.create(companyLog);
+            return "home";
+        }catch(Exception e){
+            return "marketVolume";
+        }
     } 
     @RequestMapping(value="/marketCap")
     public String marketCap(){
@@ -136,12 +163,16 @@ public class Controlled {
     @RequestMapping(value="/setMarketCap", method=RequestMethod.POST)
     public String setmarketCap(@RequestParam("companyCode") String companyCode,
             @RequestParam("marketCap") String marketCap){
-        stockService.setMarketCap(companyCode.toUpperCase(),Double.valueOf(marketCap));
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
+        try{
+            stockService.setMarketCap(companyCode.toUpperCase(),Double.valueOf(marketCap));
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),companyServiceLog.getLastestCurrentRate(),
                 companyServiceLog.getLastestCloseRate(),Double.valueOf(marketCap),
                 companyServiceLog.getLastestVolumeBought(),companyServiceLog.getLastestMarketVolume());
-        companyServiceLog.create(companyLog);
-        return "home";
+            companyServiceLog.create(companyLog);
+            return "home";
+        }catch(Exception e){
+            return "marketCap";
+        }
     } 
     @RequestMapping(value="/delete")
     public String delete(){
@@ -149,10 +180,14 @@ public class Controlled {
     }
     @RequestMapping(value="/deleteStock", method=RequestMethod.POST)
     public String deleteStock(@RequestParam("companyCode") String companyCode,@RequestParam("companyName") String companyName){
-        stockService.delete(companyCode.toUpperCase(), companyName);
-        CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),0,0,0,0,0);
-        companyServiceLog.create(companyLog);
-        return "home";
+        try{
+            stockService.delete(companyCode.toUpperCase(), companyName);
+            CompanyLog companyLog = new CompanyLog(companyCode.toUpperCase(),time(),0,0,0,0,0);
+            companyServiceLog.create(companyLog);
+            return "home";
+        }catch(Exception e){
+            return "delete";
+        }
     }
     @RequestMapping(value="/buyStock")
     public String buyStock(){
@@ -162,12 +197,16 @@ public class Controlled {
     public String buy(@RequestParam("companyCode") String companyCode,@RequestParam("rate") String rate,
         @RequestParam("lastClose") String lastClose,@RequestParam("marketCap") String marketCap,
         @RequestParam("volumeBought") String volumeBought,@RequestParam("marketVolume") String marketVolume){
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        String time = sdfDate.format(date);
-        companyServiceLog.create(new CompanyLog(companyCode.toUpperCase(),time,Double.valueOf(rate),
+        try{
+            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            String time = sdfDate.format(date);
+            companyServiceLog.create(new CompanyLog(companyCode.toUpperCase(),time,Double.valueOf(rate),
                 Double.valueOf(lastClose),Double.valueOf(marketCap),Integer.valueOf(volumeBought),Integer.valueOf(marketVolume)));
-        return "home";
+            return "home";
+        }catch(Exception e){
+            return "buyStock";
+        }
     }
     @RequestMapping(value="/confirmSell")
     public String comfirmSell(ModelMap m){
