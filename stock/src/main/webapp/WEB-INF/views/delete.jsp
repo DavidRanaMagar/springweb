@@ -1,4 +1,4 @@
-
+<%@page import="java.security.Principal"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,14 @@
             <div
                 class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav ml-auto links">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="login">Login</a></li>
+                    <<%  Principal p = request.getUserPrincipal();
+                                String user = "Login";
+                                String path = "login";
+                                if (p!=null){
+                                    user=p.getName().toString();
+                                    path="userStock";
+                                }%>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="<%out.print(path);%>"><%out.print(user);%></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout">Logout</a></li>
                 </ul>
         </div>

@@ -2,11 +2,13 @@
 package com.spring.stock.controller;
 
 import com.spring.stock.entity.BuyersTable;
+import com.spring.stock.entity.CompanyLog;
 import com.spring.stock.entity.Roles;
 import com.spring.stock.entity.Stock;
 import com.spring.stock.entity.UserInfo;
 import com.spring.stock.entity.Users;
 import com.spring.stock.services.BuyersTableService;
+import com.spring.stock.services.CompanyLogService;
 import com.spring.stock.services.RolesService;
 import com.spring.stock.services.StockService;
 import com.spring.stock.services.UserInfoService;
@@ -18,14 +20,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PagesController {
@@ -35,26 +39,28 @@ public class PagesController {
     private RolesService roleService;
     private UserInfoService userInfoService;
     private BuyersTableService buyerService;
+    private CompanyLogService companyLogService;
     @Autowired
     public PagesController(StockService stockImp, UsersService userService, RolesService roleService,
-            UserInfoService userInfoService,BuyersTableService buyerService) {
+            UserInfoService userInfoService,BuyersTableService buyerService,CompanyLogService companyLogService) {
         this.stockImp = stockImp;
         this.userService = userService;
         this.roleService = roleService;
         this.userInfoService = userInfoService;
         this.buyerService = buyerService;
+        this.companyLogService = companyLogService;
     }
-    
     @RequestMapping(value="/")
-    public String home(){
+    public String home(ModelMap m){
         return "home";
     }
     @RequestMapping(value="/getByName")
     public String stockByName(@RequestParam("companyName") String name, ModelMap m){
         try{
             Stock stock = stockImp.getByName(name);
-            System.out.println(stock.getName());
+            List<CompanyLog> chartDate = (List<CompanyLog>) companyLogService.getAll(stock.getCode());
             m.addAttribute("stock", stock);
+            m.addAttribute("chartDate",chartDate);
             return "stock";}
         catch(Exception e){
             return "home";  
@@ -75,9 +81,7 @@ public class PagesController {
     public String showAll(ModelMap m){
         
         List<Stock> stockList = stockImp.getAll();
-        for( Stock stock: stockList){
-            System.out.print(stock.getName());
-        }
+        
         m.addAttribute("stockList",stockList);
         return "showall";
     }

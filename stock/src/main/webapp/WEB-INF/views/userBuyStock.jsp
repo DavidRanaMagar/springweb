@@ -1,4 +1,4 @@
-
+<%@page import="java.security.Principal"%>
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +30,14 @@
             <div
                 class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav ml-auto links">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="login">Login</a></li>
+                    <%  Principal p = request.getUserPrincipal();
+                                String user = "Login";
+                                String path = "login";
+                                if (p!=null){
+                                    user=p.getName().toString();
+                                    path="userStock";
+                                }%>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="<%out.print(path);%>"><%out.print(user);%></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout">Logout</a></li>
                 </ul>
         </div>
@@ -45,19 +52,19 @@
                             <div class="col-md-8 offset-md-1">
                                 <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Username</strong></p>
                             </div>
-                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="userEmail" placeholder="username" style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
+                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="userEmail" placeholder="username" value="<%=request.getUserPrincipal().getName()%>" style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;margin-top:-16px;">
                             <div class="col-md-8 offset-md-1">
                                 <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Company Code</strong></p>
                             </div>
-                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="companyCode" placeholder="Company Code" style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
+                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="companyCode" placeholder="Company Code" value = "<%=session.getAttribute("code")%>" style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;">
                             <div class="col-md-8 offset-md-1">
                                 <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;color:black"><strong>Rate</strong></p>
                             </div>
-                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="boughtPrice" placeholder="Rate" style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
+                            <div class="col-md-10 offset-md-1"><input class="form-control" type="text" name="boughtPrice" placeholder="Rate" value = "<%=session.getAttribute("rate")%>"style="margin-left:0px;font-family:Roboto, sans-serif;"></div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:24px;">
                             <div class="col-md-8 offset-md-1">
