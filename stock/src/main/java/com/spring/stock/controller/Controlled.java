@@ -32,7 +32,10 @@ public class Controlled {
         
     }
     
-    
+    @RequestMapping(value="/adminhome")
+    public String adminHome(){
+        return "adminHome";
+    }
     @RequestMapping(value="/createStock")
     public String create(){
         return "insert";

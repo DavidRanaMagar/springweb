@@ -1,4 +1,4 @@
-
+<%@page import="java.security.Principal"%>
 <%@page import="java.security.Principal"%>
 <!DOCTYPE html>
 <html>
@@ -57,27 +57,30 @@
                     <input type="text" name="companyName" placeholder="Name of company">
                     <button type="submit">Search </button>
                 </form><br>
-                <a href="userStock">See my Stock</a><br>
-                <a href="userDelete">Delete my Account</a><br>
-                <a href="userBuyStock">Buy Stock</a><br>
-                <a href="showAll">All Stock</a>
+                <a href="createStock">Create Stock</a><br>
+                <a href="ask">Set Ask Rate</a><br>
+                <a href="close">Set Close Rate</a><br>
+                <a href="bid">Set Bid Rate</a><br>
+                <a href="todayRate">Set Today Rate</a><br>
+                <a href="marketVolume">Set Market Volume</a><br>
+                <a href="marketCap">Set Market Cap</a><br>
+                <a href="delete">Delete Stock</a><br>
+                <a href="buyStock">Set Buy Stock</a><br>
+                <a href="confirmSell">Conform Sell</a><br>
+                <a href="showAll">All Stock</a><br>
             </div>
             <div class="main">
-                <form class="search-form" style="width:750px;" action="getByName">
-                    <h2>Stock Of </h2>
-                    <div class="input-group" style="width:750px;">
-                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" name="companyName" placeholder="Name of company">
-                        <div class="input-group-append"><button class="btn btn-light" type="submit">Search </button></div>
-                    </div>
-                </form>
-                <form class="search-form" style="width:750px;" action="getByCode">
-                    <h2>Stock Of </h2>
-                    <div class="input-group" style="width:750px;">
-                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" name="companyCode" placeholder="Code of company">
-                        <div class="input-group-append"><button class="btn btn-light" type="submit">Search </button></div>
-                    </div>
-                </form>
-                <a href="showAll">Show All Stock</a>
+                <h2><a href="createStock">Create Stock</a></h2><br>
+                <h2><a href="ask">Set Ask Rate</a></h2><br>
+                <h2><a href="close">Set Close Rate</a></h2><br>
+                <h2><a href="bid">Set Bid Rate</a></h2><br>
+                <h2><a href="todayRate">Set Today Rate</a></h2><br>
+                <h2><a href="marketVolume">Set Market Volume</a></h2><br>
+                <h2><a href="marketCap">Set Market Cap</a></h2><br>
+                <h2><a href="delete">Delete Stock</a></h2><br>
+                <h2><a href="buyStock">Set Buy Stock</a></h2><br>
+                <h2><a href="confirmSell">Conform Sell</a></h2><br>
+                <h2><a href="showAll">All Stock</a></h2><br>
             </div>
         </div>
         <script src="assets/js/jquery.min.js"></script>

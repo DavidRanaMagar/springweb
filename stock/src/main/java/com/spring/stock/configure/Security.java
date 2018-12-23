@@ -34,7 +34,7 @@ public class Security extends WebSecurityConfigurerAdapter {
             ,"/setBid","/ask","/setAsk","/close","/setPreviousClose"
             ,"/setOpen","/setTodayOpen","/todayRate","/setTodayRate",
             "/marketVolume","/setMarketVolume","/marketCap","/setMarketCap",
-            "/delete","/deleteStock","/buyStock","/buy","/confirmSell","/confirmSellStock").hasAnyRole("ADMIN")
+            "/delete","/deleteStock","/buyStock","/buy","/confirmSell","/confirmSellStock","/adminhome").hasAnyRole("ADMIN")
                .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll();
         
